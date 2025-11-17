@@ -7,13 +7,13 @@ const Hero = () => {
   }
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 relative overflow-hidden">
       {/* Gradientes de fondo */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-cyan-900/20" />
       <div className="absolute top-20 left-20 w-72 h-72 bg-pink-500/10 rounded-full blur-3xl" />
       <div className="absolute bottom-20 right-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
 
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
         {/* Contenido de texto */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -24,13 +24,13 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="inline-block px-4 py-2 rounded-full mb-6 backdrop-blur"
+            className="inline-block px-3 sm:px-4 py-2 rounded-full mb-4 sm:mb-6 backdrop-blur"
             style={{ 
               backgroundColor: 'rgba(168, 85, 247, 0.2)',
               border: '1px solid rgba(168, 85, 247, 0.4)'
             }}
           >
-            <span style={{ color: '#A855F7' }} className="font-bold text-sm">
+            <span style={{ color: '#A855F7' }} className="font-bold text-xs sm:text-sm">
               👋 ¡Hola! Soy Desarrollador Full Stack
             </span>
           </motion.div>
@@ -39,26 +39,25 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="font-display text-6xl md:text-8xl mb-6 leading-tight"
+            className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-4 sm:mb-6 leading-tight"
           >
-            <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent block">
               ÁLVARO
             </span>
-            <br />
-            <span className="text-white">ACOSTA</span>
+            <span className="text-white block">ACOSTA</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-xl text-gray-300 mb-8 leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed"
           >
             Desarrollador especializado en{' '}
             <span className="text-pink-400 font-bold">Android/Kotlin</span>,{' '}
             <span className="text-purple-400 font-bold">React</span> y{' '}
             <span className="text-cyan-400 font-bold">Node.js</span>.
-            <br />
+            <br className="hidden sm:block" />
             Transformo ideas en aplicaciones funcionales y atractivas.
           </motion.p>
 
@@ -66,13 +65,13 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="flex flex-wrap gap-4"
+            className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
           >
             <motion.button
               whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(168, 85, 247, 0.6)' }}
               whileTap={{ scale: 0.95 }}
               onClick={scrollToProjects}
-              className="px-8 py-4 rounded-xl font-bold text-white shadow-lg transition cursor-pointer"
+              className="px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-white shadow-lg transition cursor-pointer text-sm sm:text-base w-full sm:w-auto"
               style={{ background: 'linear-gradient(to right, #A855F7, #EC4899)' }}
             >
               Ver Proyectos
@@ -82,7 +81,7 @@ const Hero = () => {
               href="#contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 rounded-xl border-2 font-bold text-white backdrop-blur transition cursor-pointer"
+              className="px-6 sm:px-8 py-3 sm:py-4 rounded-xl border-2 font-bold text-white backdrop-blur transition cursor-pointer text-sm sm:text-base text-center w-full sm:w-auto"
               style={{ 
                 borderColor: '#00E5FF',
                 backgroundColor: 'rgba(0, 229, 255, 0.1)'
@@ -97,17 +96,17 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="flex gap-4 mt-8"
+            className="flex gap-3 sm:gap-4 mt-6 sm:mt-8 justify-center sm:justify-start"
           >
             <motion.a
               href="https://github.com/barvaro0411"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.2, rotate: 360 }}
-              className="p-3 rounded-full backdrop-blur transition cursor-pointer"
+              className="p-2 sm:p-3 rounded-full backdrop-blur transition cursor-pointer"
               style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
             >
-              <Github className="w-6 h-6 text-white" />
+              <Github className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </motion.a>
 
             <motion.a
@@ -115,29 +114,29 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.2, rotate: 360 }}
-              className="p-3 rounded-full backdrop-blur transition cursor-pointer"
+              className="p-2 sm:p-3 rounded-full backdrop-blur transition cursor-pointer"
               style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
             >
-              <Linkedin className="w-6 h-6 text-white" />
+              <Linkedin className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </motion.a>
 
             <motion.a
               href="mailto:barvaro0411@gmail.com"
               whileHover={{ scale: 1.2, rotate: 360 }}
-              className="p-3 rounded-full backdrop-blur transition cursor-pointer"
+              className="p-2 sm:p-3 rounded-full backdrop-blur transition cursor-pointer"
               style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
             >
-              <Mail className="w-6 h-6 text-white" />
+              <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </motion.a>
           </motion.div>
         </motion.div>
 
-        {/* Imagen de perfil con nueva.jpg */}
+        {/* Imagen de perfil */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8, x: 50 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="relative"
+          className="relative order-first md:order-last"
         >
           <motion.div
             animate={{ 
@@ -152,14 +151,14 @@ const Hero = () => {
             className="relative"
           >
             <img 
-  src="/images/nueva.jpg"
-  alt="Álvaro Acosta"
-  className="w-full max-w-md mx-auto rounded-3xl"
-  style={{
-    border: '4px solid',
-    borderImage: 'linear-gradient(45deg, #A855F7, #EC4899, #00E5FF) 1'
-  }}
-/>
+              src="/images/nueva.jpg"
+              alt="Álvaro Acosta"
+              className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto rounded-3xl"
+              style={{
+                border: '4px solid',
+                borderImage: 'linear-gradient(45deg, #A855F7, #EC4899, #00E5FF) 1'
+              }}
+            />
             
             {/* Efecto de brillo */}
             <motion.div
@@ -182,13 +181,13 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
             whileHover={{ scale: 1.05 }}
-            className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full backdrop-blur-md shadow-xl"
+            className="absolute -bottom-4 sm:-bottom-6 left-1/2 transform -translate-x-1/2 px-4 sm:px-6 py-2 sm:py-3 rounded-full backdrop-blur-md shadow-xl"
             style={{
               background: 'linear-gradient(to right, rgba(168, 85, 247, 0.9), rgba(236, 72, 153, 0.9))',
               border: '2px solid rgba(255, 255, 255, 0.2)'
             }}
           >
-            <p className="text-white font-bold text-sm">🚀 Disponible para proyectos</p>
+            <p className="text-white font-bold text-xs sm:text-sm">🚀 Disponible para proyectos</p>
           </motion.div>
         </motion.div>
       </div>
@@ -201,7 +200,7 @@ const Hero = () => {
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
         onClick={scrollToProjects}
       >
-        <ChevronDown className="w-8 h-8" style={{ color: '#A855F7' }} />
+        <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8" style={{ color: '#A855F7' }} />
       </motion.div>
     </section>
   )

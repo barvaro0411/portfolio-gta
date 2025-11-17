@@ -1,15 +1,25 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import ReactGA from 'react-ga4'
-import './index.css'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+import './index.css'
+import ReactGA from "react-ga4";
 
-// Inicializar Google Analytics
-ReactGA.initialize('G-XXXXXXXXXX') // Reemplazar con tu Measurement ID
-ReactGA.send('pageview')
+// --- ZONA DE CORRECCIÓN ---
+const TRACKING_ID = "TU-ID-G-AQUI"; // Pon tu ID real aquí
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+// Verificamos si initialize existe directamente, si no, buscamos en .default
+if (typeof ReactGA.initialize === 'function') {
+  ReactGA.initialize(TRACKING_ID);
+} else if (ReactGA.default && typeof ReactGA.default.initialize === 'function') {
+  ReactGA.default.initialize(TRACKING_ID); // Esto suele arreglarlo en Rolldown
+  console.log("GA inicializado vía .default");
+} else {
+  console.warn("No se pudo inicializar Google Analytics");
+}
+// --------------------------
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
     <App />
-  </StrictMode>,
+  </React.StrictMode>,
 )

@@ -1,7 +1,12 @@
 import { motion } from 'framer-motion'
 import { Code2, Rocket, Zap, Briefcase } from 'lucide-react'
-import CountUp from 'react-countup'
 import { useInView } from 'react-intersection-observer'
+
+// --- CORRECCIÓN DEL ERROR AQUÍ ---
+// Importamos todo el módulo y extraemos el componente manualmente
+import * as CountUpPkg from 'react-countup';
+const CountUp = CountUpPkg.default || CountUpPkg;
+// --------------------------------
 
 const About = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.3 })
@@ -61,6 +66,7 @@ const About = () => {
                   stat.value
                 ) : (
                   <>
+                    {/* Aquí es donde fallaba antes */}
                     {inView && <CountUp end={stat.value} duration={2.5} />}
                     {stat.suffix}
                   </>

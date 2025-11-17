@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700;900&display=swap');
 
+/* --- CORRECCIÓN: Ocultar cursor del sistema en TODO el sitio --- */
+* {
+  cursor: none;
+}
+
 body {
   background-color: #050505;
   color: white;
@@ -59,9 +64,23 @@ body {
   }
 }
 
-/* Hover effects mejorados */
+/* Cursor personalizado (opcional si usas Framer Motion, pero bueno tenerlo) */
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #FF6EC7;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: all 0.1s ease;
+  mix-blend-mode: difference;
+}
+
+/* Hover effects mejorados y cursor oculto forzado */
 a, button {
-  cursor: pointer;
+  cursor: none !important;
   transition: all 0.3s ease;
 }
 

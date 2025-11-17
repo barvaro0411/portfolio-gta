@@ -1,43 +1,50 @@
 import { motion } from 'framer-motion'
-import { Github, ExternalLink } from 'lucide-react'
+import { Github, Play } from 'lucide-react'
+import { useState } from 'react'
 
 const Projects = () => {
-  const missions = [
+  const [hoveredProject, setHoveredProject] = useState(null)
+
+  const projects = [
     {
-      title: 'MISSION: SmartWallet',
-      subtitle: 'FinancIA Mobile',
-      description: 'Aplicación móvil Android de finanzas personales con Firebase, multi-moneda y análisis inteligente',
-      tech: ['Kotlin', 'Firebase', 'Android', 'Room DB'],
-      color: 'linear-gradient(to right, #FF6EC7, #A855F7)',
+      id: 1,
+      title: 'FinancIA Mobile',
+      description: 'App móvil de finanzas personales con IA, multi-moneda y visualización de datos en tiempo real.',
+      tech: ['Kotlin', 'Firebase', 'Room DB', 'Retrofit', 'OpenAI API'],
       github: 'https://github.com/barvaro0411/FinancIA-Mobile',
-      gradient: 'linear-gradient(to bottom right, rgba(255, 110, 199, 0.2), rgba(168, 85, 247, 0.2))'
+      demo: null,
+      color: '#FF6EC7',
+      status: 'En Desarrollo'
     },
     {
-      title: 'MISSION: WebFinance',
-      subtitle: 'FinancIA Web',
-      description: 'Plataforma web de gestión financiera con diseño moderno y funcionalidades avanzadas',
-      tech: ['React', 'JavaScript', 'CSS'],
-      color: 'linear-gradient(to right, #A855F7, #00E5FF)',
-      github: 'https://github.com/barvaro0411/FinancIA-Web',
-      gradient: 'linear-gradient(to bottom right, rgba(168, 85, 247, 0.2), rgba(0, 229, 255, 0.2))'
-    },
-    {
-      title: 'MISSION: DiscountHunter',
-      subtitle: 'La Feria Digital',
-      description: 'Marketplace digital con sistema de códigos de descuento y autenticación',
-      tech: ['JavaScript', 'Node.js', 'Web'],
-      color: 'linear-gradient(to right, #FF8C42, #FF6EC7)',
+      id: 2,
+      title: 'La Feria Digital',
+      description: 'Marketplace con autenticación, gestión de productos, carrito de compras y códigos de descuento.',
+      tech: ['React', 'Node.js', 'MongoDB', 'Express', 'Bootstrap'],
       github: 'https://github.com/barvaro0411/la-feria-digital',
-      gradient: 'linear-gradient(to bottom right, rgba(255, 140, 66, 0.2), rgba(255, 110, 199, 0.2))'
+      demo: '/demos/laferia-demo.gif',
+      color: '#A855F7',
+      status: 'En Desarrollo'
     },
     {
-      title: 'MISSION: PriceFinder',
-      subtitle: 'Precio Festín',
-      description: 'Aplicación TypeScript para comparación de precios y búsqueda de ofertas',
-      tech: ['TypeScript', 'React', 'API Integration'],
-      color: 'linear-gradient(to right, #00E5FF, #A855F7)',
-      github: 'https://github.com/barvaro0411/precio-festin',
-      gradient: 'linear-gradient(to bottom right, rgba(0, 229, 255, 0.2), rgba(168, 85, 247, 0.2))'
+      id: 3,
+      title: 'Portal de Descuentos',
+      description: 'Sitio web para códigos de descuento con sistema de búsqueda y categorías.',
+      tech: ['HTML5', 'CSS', 'JavaScript', 'Bootstrap'],
+      github: 'https://github.com/barvaro0411/descuentos-web',
+      demo: null,
+      color: '#00E5FF',
+      status: 'Completado'
+    },
+    {
+      id: 4,
+      title: 'Portfolio GTA VI',
+      description: 'Portafolio personal con diseño inspirado en videojuegos AAA y animaciones fluidas.',
+      tech: ['React', 'Framer Motion', 'Tailwind', 'EmailJS'],
+      github: 'https://github.com/barvaro0411/portfolio-gta',
+      demo: null,
+      color: '#FF8C42',
+      status: 'Completado'
     }
   ]
 
@@ -48,84 +55,121 @@ const Projects = () => {
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="font-display text-7xl md:text-9xl mb-20 glitch"
-          style={{ color: '#FF8C42' }}
+          className="font-display text-7xl md:text-9xl mb-20"
+          style={{ color: '#00E5FF' }}
         >
           MISSIONS
         </motion.h2>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {missions.map((mission, index) => (
+          {projects.map((project, index) => (
             <motion.div
-              key={index}
+              key={project.id}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.02, y: -10 }}
-              className="p-8 rounded-3xl border-2 backdrop-blur relative overflow-hidden group cursor-pointer"
-              style={{
-                background: mission.gradient,
-                borderColor: 'rgba(255, 110, 199, 0.3)'
-              }}
+              transition={{ delay: index * 0.2 }}
+              className="relative group"
             >
               <motion.div
-                className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity"
-                style={{ background: mission.color }}
-              />
+                whileHover={{ y: -10, scale: 1.02 }}
+                onHoverStart={() => setHoveredProject(project.id)}
+                onHoverEnd={() => setHoveredProject(null)}
+                className="relative p-8 rounded-2xl border-2 backdrop-blur cursor-pointer overflow-hidden"
+                style={{
+                  background: 'linear-gradient(to bottom right, #0A0A0A, #050505)',
+                  borderColor: `${project.color}40`,
+                  minHeight: '450px'
+                }}
+              >
+                {/* GIF Demo */}
+                {project.demo && hoveredProject === project.id && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="absolute inset-0 z-20 flex items-center justify-center bg-black/95 p-6"
+                  >
+                    <div className="relative w-full h-full">
+                      <img 
+                        src={project.demo} 
+                        alt={`${project.title} demo`}
+                        className="w-full h-full object-contain rounded-xl border-2"
+                        style={{ borderColor: project.color }}
+                      />
+                      <div
+                        className="absolute top-4 right-4 px-4 py-2 rounded-full flex items-center gap-2 font-bold"
+                        style={{ backgroundColor: project.color }}
+                      >
+                        <Play className="w-4 h-4" fill="white" />
+                        <span className="text-sm text-white">DEMO</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
 
-              <div className="relative z-10">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="font-display text-4xl text-white mb-2">{mission.title}</h3>
-                    <p className="text-xl" style={{ color: '#00E5FF' }}>{mission.subtitle}</p>
+                {/* Contenido */}
+                <div className="relative z-10">
+                  <motion.div
+                    className="inline-block px-3 py-1 rounded-full text-xs font-bold mb-3"
+                    style={{ 
+                      backgroundColor: `${project.color}20`, 
+                      color: project.color 
+                    }}
+                  >
+                    {project.status}
+                  </motion.div>
+                  
+                  <h3 className="font-display text-3xl text-white mb-2">
+                    {project.title}
+                  </h3>
+                  
+                  {project.demo && (
+                    <div className="flex items-center gap-1 text-xs font-bold mb-4" style={{ color: project.color }}>
+                      <Play className="w-3 h-3" />
+                      Hover para ver demo
+                    </div>
+                  )}
+
+                  <p className="text-gray-300 mb-6 leading-relaxed">
+                    {project.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.tech.map((tech, i) => (
+                      <motion.span
+                        key={i}
+                        whileHover={{ scale: 1.1, y: -2 }}
+                        className="px-3 py-1 rounded-full text-sm border"
+                        style={{
+                          backgroundColor: `${project.color}15`,
+                          borderColor: `${project.color}40`,
+                          color: project.color
+                        }}
+                      >
+                        {tech}
+                      </motion.span>
+                    ))}
                   </div>
-                  <div className="flex gap-3">
-                    <motion.a
-                      href={mission.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      className="p-3 rounded-full transition cursor-pointer"
-                      style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
-                    >
-                      <Github className="w-6 h-6" />
-                    </motion.a>
-                  </div>
+
+                  <motion.a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.05, x: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border-2 font-bold"
+                    style={{ 
+                      borderColor: project.color,
+                      color: project.color,
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                    }}
+                  >
+                    <Github className="w-4 h-4" />
+                    Ver Código
+                  </motion.a>
                 </div>
-
-                <p className="mb-6 leading-relaxed" style={{ color: '#D1D5DB' }}>
-                  {mission.description}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {mission.tech.map((tech, i) => (
-                    <motion.span
-                      key={i}
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      className="px-4 py-2 rounded-full text-sm font-semibold border cursor-pointer"
-                      style={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                        borderColor: 'rgba(0, 229, 255, 0.3)'
-                      }}
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </div>
-
-                <motion.a
-                  href={mission.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ x: 10 }}
-                  className="px-6 py-3 rounded-full font-bold flex items-center gap-2 group cursor-pointer w-fit"
-                  style={{ background: mission.color }}
-                >
-                  VIEW MISSION
-                  <ExternalLink className="w-4 h-4 group-hover:rotate-45 transition" />
-                </motion.a>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
@@ -135,4 +179,3 @@ const Projects = () => {
 }
 
 export default Projects
-  

@@ -1,9 +1,15 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700;900&display=swap');
 
-/* --- CORRECCIÓN: Ocultar cursor del sistema en TODO el sitio --- */
-* {
-  cursor: none;
+/* --- LÓGICA DEL CURSOR: Solo ocultar el del sistema en PC (md y superior) --- */
+@media (min-width: 768px) {
+  * {
+    cursor: none;
+  }
+  
+  a, button, input, textarea {
+    cursor: none !important;
+  }
 }
 
 body {
@@ -64,23 +70,8 @@ body {
   }
 }
 
-/* Cursor personalizado (opcional si usas Framer Motion, pero bueno tenerlo) */
-.custom-cursor {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #FF6EC7;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: all 0.1s ease;
-  mix-blend-mode: difference;
-}
-
-/* Hover effects mejorados y cursor oculto forzado */
+/* Hover effects mejorados (mantenemos la animación, quitamos cursor:none de aquí) */
 a, button {
-  cursor: none !important;
   transition: all 0.3s ease;
 }
 

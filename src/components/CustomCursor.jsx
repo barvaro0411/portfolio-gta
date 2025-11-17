@@ -13,28 +13,31 @@ const CustomCursor = () => {
     const handleMouseEnter = () => setIsHovering(true)
     const handleMouseLeave = () => setIsHovering(false)
 
-    window.addEventListener('mousemove', handleMouseMove)
-    
-    const hoverElements = document.querySelectorAll('a, button, input, textarea')
-    hoverElements.forEach(el => {
-      el.addEventListener('mouseenter', handleMouseEnter)
-      el.addEventListener('mouseleave', handleMouseLeave)
-    })
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
+    // Solo agregamos los listeners si es un dispositivo con puntero fino (PC)
+    if (window.matchMedia("(pointer: fine)").matches) {
+      window.addEventListener('mousemove', handleMouseMove)
+      
+      const hoverElements = document.querySelectorAll('a, button, input, textarea')
       hoverElements.forEach(el => {
-        el.removeEventListener('mouseenter', handleMouseEnter)
-        el.removeEventListener('mouseleave', handleMouseLeave)
+        el.addEventListener('mouseenter', handleMouseEnter)
+        el.addEventListener('mouseleave', handleMouseLeave)
       })
+
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove)
+        hoverElements.forEach(el => {
+          el.removeEventListener('mouseenter', handleMouseEnter)
+          el.removeEventListener('mouseleave', handleMouseLeave)
+        })
+      }
     }
   }, [])
 
   return (
     <>
-      {/* Cursor principal */}
+      {/* Cursor principal - Oculto en móvil (hidden), visible en escritorio (md:block) */}
       <motion.div
-        className="fixed pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed pointer-events-none z-[9999] mix-blend-difference hidden md:block"
         animate={{
           x: position.x - 10,
           y: position.y - 10,
@@ -51,9 +54,9 @@ const CustomCursor = () => {
         />
       </motion.div>
 
-      {/* Cursor secundario (efecto trailing) */}
+      {/* Cursor secundario (trailing) - Oculto en móvil */}
       <motion.div
-        className="fixed pointer-events-none z-[9998] rounded-full"
+        className="fixed pointer-events-none z-[9998] rounded-full hidden md:block"
         animate={{
           x: position.x - 3,
           y: position.y - 3,

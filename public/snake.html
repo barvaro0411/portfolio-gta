@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Snake Game - Python</title>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0A0A0A 0%, #1a1a2e 100%);
+            font-family: 'Courier New', monospace;
+            touch-action: none;
+        }
+        
+        #game-container {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #FF6EC7;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #FF6EC7;
+        }
+        
+        #score {
+            color: #00E5FF;
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+        
+        canvas {
+            border: 3px solid #A855F7;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+            max-width: 100%;
+            height: auto;
+            touch-action: none;
+        }
+        
+        #controls {
+            margin-top: 20px;
+            color: #9CA3AF;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #A855F7, #FF6EC7);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+            font-family: 'Courier New', monospace;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            #score { font-size: 1.2rem; }
+            button { padding: 12px 24px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>🐍 SNAKE GAME</h1>
+        <div id="score">Score: 0</div>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <div id="controls">
+            <p>Desktop: Use Arrow Keys | Mobile: Swipe</p>
+            <button id="restartBtn">Restart Game</button>
+        </div>
+    </div>
+
+    <script type="py" config='{"packages": ["pyodide-http"]}'>
+        from pyscript import document, window
+        from js import console, setInterval, clearInterval
+        import random
+        
+        # Configuración del juego
+        canvas = document.getElementById("gameCanvas")
+        ctx = canvas.getContext("2d")
+        score_element = document.getElementById("score")
+        
+        GRID_SIZE = 20
+        TILE_SIZE = canvas.width // GRID_SIZE
+        
+        # Estado del juego
+        class Game:
+            def __init__(self):
+                self.snake = [[10, 10], [10, 11], [10, 12]]
+                self.direction = "UP"
+                self.next_direction = "UP"
+                self.food = self.spawn_food()
+                self.score = 0
+                self.game_over = False
+                self.interval_id = None
+                
+                # Variables para touch/swipe
+                self.touch_start_x = 0
+                self.touch_start_y = 0
+            
+            def spawn_food(self):
+                while True:
+                    food = [
+                        random.randint(0, GRID_SIZE - 1),
+                        random.randint(0, GRID_SIZE - 1)
+                    ]
+                    if food not in self.snake:
+                        return food
+            
+            def update(self):
+                if self.game_over:
+                    return
+                
+                # Actualizar dirección
+                self.direction = self.next_direction
+                
+                # Calcular nueva posición de la cabeza
+                head = self.snake[0].copy()
+                if self.direction == "UP":
+                    head[1] -= 1
+                elif self.direction == "DOWN":
+                    head[1] += 1
+                elif self.direction == "LEFT":
+                    head[0] -= 1
+                elif self.direction == "RIGHT":
+                    head[0] += 1
+                
+                # Verificar colisiones con paredes
+                if (head[0] < 0 or head[0] >= GRID_SIZE or 
+                    head[1] < 0 or head[1] >= GRID_SIZE):
+                    self.end_game()
+                    return
+                
+                # Verificar colisión con el cuerpo
+                if head in self.snake:
+                    self.end_game()
+                    return
+                
+                # Insertar nueva cabeza
+                self.snake.insert(0, head)
+                
+                # Verificar si comió comida
+                if head == self.food:
+                    self.score += 10
+                    score_element.innerText = f"Score: {self.score}"
+                    self.food = self.spawn_food()
+                else:
+                    self.snake.pop()
+                
+                self.draw()
+            
+            def draw(self):
+                # Limpiar canvas
+                ctx.fillStyle = "#0A0A0A"
+                ctx.fillRect(0, 0, canvas.width, canvas.height)
+                
+                # Dibujar grid
+                ctx.strokeStyle = "#1a1a2e"
+                ctx.lineWidth = 1
+                for i in range(GRID_SIZE):
+                    ctx.beginPath()
+                    ctx.moveTo(i * TILE_SIZE, 0)
+                    ctx.lineTo(i * TILE_SIZE, canvas.height)
+                    ctx.stroke()
+                    ctx.beginPath()
+                    ctx.moveTo(0, i * TILE_SIZE)
+                    ctx.lineTo(canvas.width, i * TILE_SIZE)
+                    ctx.stroke()
+                
+                # Dibujar serpiente
+                for i, segment in enumerate(self.snake):
+                    if i == 0:
+                        # Cabeza
+                        ctx.fillStyle = "#FF6EC7"
+                    else:
+                        # Cuerpo
+                        ctx.fillStyle = "#A855F7"
+                    
+                    ctx.fillRect(
+                        segment[0] * TILE_SIZE + 2,
+                        segment[1] * TILE_SIZE + 2,
+                        TILE_SIZE - 4,
+                        TILE_SIZE - 4
+                    )
+                
+                # Dibujar comida
+                ctx.fillStyle = "#00E5FF"
+                ctx.fillRect(
+                    self.food[0] * TILE_SIZE + 2,
+                    self.food[1] * TILE_SIZE + 2,
+                    TILE_SIZE - 4,
+                    TILE_SIZE - 4
+                )
+            
+            def end_game(self):
+                self.game_over = True
+                if self.interval_id:
+                    clearInterval(self.interval_id)
+                
+                ctx.fillStyle = "rgba(0, 0, 0, 0.7)"
+                ctx.fillRect(0, 0, canvas.width, canvas.height)
+                
+                ctx.fillStyle = "#FF6EC7"
+                ctx.font = "40px 'Courier New'"
+                ctx.textAlign = "center"
+                ctx.fillText("GAME OVER", canvas.width // 2, canvas.height // 2)
+                
+                ctx.fillStyle = "#00E5FF"
+                ctx.font = "24px 'Courier New'"
+                ctx.fillText(f"Final Score: {self.score}", canvas.width // 2, canvas.height // 2 + 40)
+            
+            def change_direction(self, new_direction):
+                # Evitar movimientos inversos
+                opposites = {"UP": "DOWN", "DOWN": "UP", "LEFT": "RIGHT", "RIGHT": "LEFT"}
+                if self.direction != opposites.get(new_direction):
+                    self.next_direction = new_direction
+        
+        # Crear instancia del juego
+        game = Game()
+        
+        # Event handlers
+        def handle_keydown(event):
+            key = event.key
+            if key == "ArrowUp":
+                game.change_direction("UP")
+            elif key == "ArrowDown":
+                game.change_direction("DOWN")
+            elif key == "ArrowLeft":
+                game.change_direction("LEFT")
+            elif key == "ArrowRight":
+                game.change_direction("RIGHT")
+        
+        # Touch events para móvil
+        def handle_touchstart(event):
+            event.preventDefault()
+            touch = event.touches[0]
+            game.touch_start_x = touch.clientX
+            game.touch_start_y = touch.clientY
+        
+        def handle_touchend(event):
+            event.preventDefault()
+            if len(event.changedTouches) == 0:
+                return
+            
+            touch = event.changedTouches[0]
+            dx = touch.clientX - game.touch_start_x
+            dy = touch.clientY - game.touch_start_y
+            
+            # Detectar dirección del swipe
+            if abs(dx) > abs(dy):
+                if dx > 30:
+                    game.change_direction("RIGHT")
+                elif dx < -30:
+                    game.change_direction("LEFT")
+            else:
+                if dy > 30:
+                    game.change_direction("DOWN")
+                elif dy < -30:
+                    game.change_direction("UP")
+        
+        def restart_game(event):
+            global game
+            if game.interval_id:
+                clearInterval(game.interval_id)
+            game = Game()
+            game.draw()
+            game.interval_id = setInterval(lambda: game.update(), 150)
+        
+        # Registrar eventos
+        document.addEventListener("keydown", handle_keydown)
+        canvas.addEventListener("touchstart", handle_touchstart)
+        canvas.addEventListener("touchend", handle_touchend)
+        document.getElementById("restartBtn").addEventListener("click", restart_game)
+        
+        # Iniciar el juego
+        game.draw()
+        game.interval_id = setInterval(lambda: game.update(), 150)
+    </script>
+</body>
+</html>

@@ -9,8 +9,8 @@ import Contact from './components/Contact'
 import Navbar from './components/Navbar'
 import LoadingScreen from './components/LoadingScreen'
 import BackToTop from './components/BackToTop'
-// 1. Importar el componente del cursor
-import CustomCursor from './components/CustomCursor' 
+import CustomCursor from './components/CustomCursor' // Tu cursor personalizado
+import SnakeGame from './components/SnakeGame'     // El nuevo juego
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -22,9 +22,9 @@ function App() {
 
   return (
     <>
-      {/* 2. Renderizar el cursor aquí al principio */}
+      {/* Cursor renderizado al inicio */}
       <CustomCursor />
-      
+
       <AnimatePresence mode="wait">
         {loading && <LoadingScreen />}
       </AnimatePresence>
@@ -36,6 +36,10 @@ function App() {
       <About />
       <Projects />
       <Skills />
+
+      {/* Zona del Juego añadida aquí */}
+      <SnakeGame />
+
       <Timeline />
       <Contact />
     </>

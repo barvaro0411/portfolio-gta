@@ -14,7 +14,8 @@ const Navbar = () => {
     { label: 'ABOUT', id: 'about' },
     { label: 'MISSIONS', id: 'projects' },
     { label: 'SKILLS', id: 'skills' },
-    { label: 'EXPERIENCE', id: 'experience' },
+    { label: 'GAME', id: 'game' },           // Nuevo botón para el juego
+    { label: 'EXPERIENCE', id: 'timeline' }, // Corregido: id apunta a 'timeline' (antes 'experience')
     { label: 'CONTACT', id: 'contact' },
   ]
 
@@ -33,7 +34,7 @@ const Navbar = () => {
         <motion.div
           whileHover={{ scale: 1.05 }}
           className="font-display text-xl sm:text-2xl md:text-3xl cursor-pointer"
-          onClick={() => scrollToSection('hero')}
+          onClick={() => scrollToSection('hero')} // Asume que el Hero está arriba del todo
           style={{ color: '#FF6EC7' }}
         >
           ÁLVARO.DEV
@@ -41,7 +42,7 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-8">
-          {menuItems.map((item, index) => (
+          {menuItems.map((item) => (
             <motion.button
               key={item.id}
               whileHover={{ scale: 1.1, color: '#FF6EC7' }}

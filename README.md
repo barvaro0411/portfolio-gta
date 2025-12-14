@@ -5,7 +5,7 @@ Portafolio web **inspirado en la estética y narrativa visual de GTA**, diseñad
 👉 Este proyecto busca destacar no solo el código, sino también **la experiencia de usuario, el diseño y la creatividad**, cualidades clave en productos digitales modernos.
 
 🌐 **Demo en vivo:**  
-https://portfolio-gta-seven.vercel.app
+https://portfolio-qhj1574rw-barvaro0411s-projects.vercel.app/
 
 ---
 

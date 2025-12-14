@@ -1,16 +1,91 @@
-# React + Vite
+# 🎮 Portfolio GTA-Style – Álvaro Acosta
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portafolio web **inspirado en la estética y narrativa visual de GTA**, diseñado para presentar mis proyectos, habilidades y experiencia como **Analista Programador Computacional (DUOC UC)**, con foco en desarrollo **Full-Stack**.
 
-Currently, two official plugins are available:
+👉 Este proyecto busca destacar no solo el código, sino también **la experiencia de usuario, el diseño y la creatividad**, cualidades clave en productos digitales modernos.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🌐 **Demo en vivo:**  
+https://portfolio-gta-seven.vercel.app
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Tecnologías Utilizadas
 
-## Expanding the ESLint configuration
+- ⚛️ **React** + **Vite**
+- 🎨 **Tailwind CSS**
+- 🧠 JavaScript (ES6+)
+- 📱 Diseño responsive (Mobile First)
+- 🚀 Deploy en **Vercel**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧩 ¿Qué incluye este portafolio?
+
+- 🎬 **Landing page inmersiva** estilo GTA
+- 👤 Sección **Sobre mí**
+- 💼 Sección **Proyectos destacados**
+- 🛠️ Stack tecnológico visible
+- 📞 Información de contacto
+- 🎨 Animaciones y transiciones suaves
+
+---
+
+## 📂 Proyectos Destacados
+
+### 🔹 DescuentoHunter
+Plataforma web para encontrar y compartir códigos de descuento vigentes.
+
+**Stack:**  
+React · Node.js · Express · MongoDB · Tailwind CSS
+
+**Características:**
+- Autenticación con JWT
+- Sistema de publicaciones
+- Experiencia personalizada
+- Enfoque en UX/UI
+
+🔗 Repo: *(agregar link si está público)*  
+🌐 Demo: *(opcional)*
+
+---
+
+### 🔹 Aplicación Web de Consultas Médicas
+Sistema web para la gestión de consultas médicas.
+
+**Stack:**  
+C# · .NET · Base de datos relacional
+
+**Características:**
+- Gestión de usuarios
+- Registro de consultas
+- Arquitectura clara y mantenible
+
+---
+
+## 🧑‍💻 Sobre mí
+
+Soy **Analista Programador Computacional titulado en DUOC UC**, con interés en el desarrollo **Full-Stack**, la creación de productos reales y el aprendizaje constante.
+
+Me motiva trabajar en proyectos que:
+- Resuelvan problemas reales
+- Tengan impacto en usuarios
+- Combinen tecnología + diseño + experiencia
+
+Actualmente busco **mi primera oportunidad profesional** como desarrollador, donde pueda aportar, aprender y crecer dentro de un equipo.
+
+---
+
+## 🛠️ Instalación y uso local
+
+```bash
+# Clonar repositorio
+git clone https://github.com/barvaro0411/portfolio-gta.git
+
+# Entrar al proyecto
+cd portfolio-gta
+
+# Instalar dependencias
+npm install
+
+# Ejecutar en desarrollo
+npm run dev

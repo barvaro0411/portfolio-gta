@@ -44,8 +44,7 @@ React · Node.js · Express · MongoDB · Tailwind CSS
 - Experiencia personalizada
 - Enfoque en UX/UI
 
-🔗 Repo: *(agregar link si está público)*  
-🌐 Demo: *(opcional)*
+
 
 ---
 
